@@ -225,15 +225,6 @@ canvas{display:block;width:100%!important}
 
 <div class="slbl">Listado de Estaciones (100 de 361)</div>
 <div class="pnl" style="overflow-x:auto">
-<div class="ci"><div>Colbun</div><div class="cv">14</div></div>
-<div class="ci"><div>Longavi</div><div class="cv">13</div></div>
-<div class="ci"><div>San Javier</div><div class="cv">13</div></div>
-<div class="ci"><div>Talca</div><div class="cv">13</div></div>
-<div class="ci"><div>Rio Claro</div><div class="cv">13</div></div>
-</div></div>
-</div>
-<div class="slbl">Listado de Estaciones (100 de 361)</div>
-<div class="pnl" style="overflow-x:auto">
   <div style="margin-bottom:.6rem;display:flex;gap:.4rem;align-items:center">
     <input type="text" id="dgaSearch" placeholder="Buscar estación, comuna, cuenca..." oninput="filterDGA()" style="background:var(--bg2);border:1px solid var(--border);color:var(--t1);padding:.4rem .6rem;border-radius:6px;font-size:.72rem;font-family:inherit;flex:1">
     <span style="font-size:.65rem;color:var(--t3)" id="dgaCount">Mostrando 100 de 361</span>
@@ -376,23 +367,6 @@ function sw(id, btn) {
     ifr.src = IURLS[id];
     ifr.onload = function () {
       if (ld) ld.classList.add('hid');
-      // CORFO: try to auto-bypass login
-      if (id === 'corfo') {
-        try {
-          const doc = ifr.contentDocument || ifr.contentWindow.document;
-          // Hide any login overlay/modal
-          doc.querySelectorAll('[class*="login"],[id*="login"],[class*="auth"],[class*="modal-backdrop"]').forEach(function(el) { el.style.display = 'none'; });
-          // Show main content
-          doc.querySelectorAll('[class*="dashboard"],[class*="content"],[class*="main"],[class*="app"]').forEach(function(el) {
-            el.style.display = '';
-            el.style.visibility = 'visible';
-            el.style.opacity = '1';
-          });
-          // Remove any body overflow hidden
-          doc.body.style.overflow = 'auto';
-          doc.body.classList.remove('modal-open');
-        } catch (e) { /* cross-origin, can't modify */ }
-      }
     };
     ifr.onerror = function () {
       if (ld) ld.innerHTML = '<div style="color:var(--rose)">⚠️ Error al cargar</div><a href="' + IURLS[id] + '" target="_blank" style="color:var(--blue);font-size:.8rem;margin-top:.5rem">Abrir en nueva pestaña →</a>';
